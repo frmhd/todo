@@ -1,0 +1,19 @@
+{
+  "todos": [
+    {
+      "name": "Hey i am first",
+      "isCompleted": false,
+      "id": 1
+    },
+    {
+      "name": "Hey i am second",
+      "isCompleted": true,
+      "id": 2
+    },
+    {
+      "name": "Hey i am third",
+      "isCompleted": true,
+      "id": 3
+    }
+  ]
+}
