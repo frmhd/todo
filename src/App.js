@@ -22,12 +22,6 @@ const App = () => (
             <TodoList filter={match.params.filter} />
           )}
         />
-        <Route
-          path="/note-:id?"
-          render={({ match }) => (
-            <TodoFull id={match.params.id} />
-          )}
-        />
         <Tabs />
       </div>
     </Router>

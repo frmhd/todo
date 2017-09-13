@@ -10,10 +10,13 @@ const enhance = compose(
   )
 );
 
-const TodoFull = enhance((props) => (
+const TodoFull = enhance(({ todo }) => (
   <div>
-    <p>{props.todo.name}</p>
-    <p>{props.todo.text}</p>
+    {console.log(todo)}
+    <p>title</p>
+    <p>{todo.name}</p>
+    <p>text</p>
+    <p>{todo.text}</p>
   </div>
 ));
 

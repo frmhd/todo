@@ -46,5 +46,5 @@ export const getActiveTodos = (todos, filter) => {
 };
 
 export const getClickedTodo = (todos, id) => (
-  todos.find((todo) => todo.id === Number(id))
+  todos.find((todo) => todo.id === parseInt(id, 10))
 );

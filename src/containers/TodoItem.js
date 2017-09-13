@@ -18,9 +18,9 @@ const enhance = compose(
   })
 );
 
-const TodoItem = enhance(({ id, isCompleted, name, deleteTodo }) => (
+const TodoItem = enhance(({ id, isCompleted, name, deleteTodo, completedHandler }) => (
   <TodoItemLi isCompleted={isCompleted}>
-    <input type="checkbox" defaultChecked={isCompleted} onChange={this.completedHandler} />
+    <input type="checkbox" defaultChecked={isCompleted} onChange={completedHandler} />
     <span>
       <Link to={`/note-${id}`}>{name}</Link>
     </span>
