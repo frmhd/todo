@@ -2,8 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
-import TodoForm from './components/TodoForm';
-import TodoList from './components/TodoList';
+import TodoForm from './containers/TodoForm';
+import TodoList from './containers/TodoList';
+import TodoFull from './containers/TodoFull';
 import Tabs from './components/Tabs';
 
 const App = (props) => (
@@ -20,7 +21,13 @@ const App = (props) => (
           render={({ match }) => (
             <TodoList filter={match.params.filter} />
           )}
-        ></Route>
+        />
+        <Route
+          path="/note-:id?"
+          render={({ match }) => (
+            <TodoFull id={match.params.id} />
+          )}
+        />
         <Tabs />
       </div>
     </Router>

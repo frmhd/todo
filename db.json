@@ -1,18 +1,21 @@
 {
   "todos": [
     {
-      "name": "Hey i am first",
+      "name": "sdfsdfsd",
+      "text": "dsfsdfsfd",
       "isCompleted": false,
       "id": 1
     },
     {
-      "name": "Hey i am second",
-      "isCompleted": true,
+      "name": "ываываыва",
+      "text": "ываываыва\n",
+      "isCompleted": false,
       "id": 2
     },
     {
-      "name": "Hey i am third",
-      "isCompleted": true,
+      "name": "ЛРрлрываыв",
+      "text": "sdfsdfdsfsdf",
+      "isCompleted": false,
       "id": 3
     }
   ]

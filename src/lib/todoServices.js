@@ -4,13 +4,13 @@ export const getTodos = () => fetch('http://localhost:8080/todos')
 export const getActiveTodos = () => fetch('http://localhost:8080/todos')
   .then((res) => res.json());
 
-export const createTodo = (name) => fetch('http://localhost:8080/todos', {
+export const createTodo = (name, text) => fetch('http://localhost:8080/todos', {
   method: 'POST',
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
   },
-  body: JSON.stringify({ name, isCompleted: false }),
+  body: JSON.stringify({ name, text, isCompleted: false }),
 })
   .then((res) => res.json());
 
