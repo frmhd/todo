@@ -1,8 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
-import TodoForm from './containers/TodoForm';
 import TodoList from './containers/TodoList';
 import TodoFull from './containers/TodoFull';
 import Tabs from './components/Tabs';
@@ -15,13 +14,20 @@ const App = () => (
     </div>
     <Router>
       <div>
-        <TodoForm />
-        <Route
-          path="/:filter?"
-          render={({ match }) => (
-            <TodoList filter={match.params.filter} />
-          )}
-        />
+        <Switch>
+          <Route
+            path="/note-:id"
+            render={({ match }) => (
+              <TodoFull id={match.params.id} />
+            )}
+          />
+          <Route
+            path="/:filter?"
+            render={({ match }) => (
+              <TodoList filter={match.params.filter} />
+            )}
+          />
+        </Switch>
         <Tabs />
       </div>
     </Router>

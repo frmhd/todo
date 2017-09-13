@@ -1,22 +1,35 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { compose } from 'recompose';
+import { compose, lifecycle } from 'recompose';
 
-import { getClickedTodo } from '../actions/todo';
+import Label from '../components/Label';
+
+import { getClickedTodo, fetchTodos } from '../actions/todo';
 
 const enhance = compose(
   connect(
-    (state, ownProperty) => ({ todo: getClickedTodo(state.todos, ownProperty.id) })
-  )
+    (state, ownProperty) => ({ todo: getClickedTodo(state.todos, ownProperty.id) }),
+    { fetchTodos }
+  ),
+  lifecycle({
+    componentDidMount() {
+      this.props.fetchTodos();
+    },
+  }),
 );
+
+const Loader = () => (<span>Loading...</span>);
 
 const TodoFull = enhance(({ todo }) => (
   <div>
-    {console.log(todo)}
-    <p>title</p>
-    <p>{todo.name}</p>
-    <p>text</p>
-    <p>{todo.text}</p>
+    {todo ?
+      <div>
+        <Label>Title</Label>
+        <p>{todo.name}</p>
+        <Label>Text</Label>
+        <p>{todo.text}</p>
+      </div>
+      : <Loader /> }
   </div>
 ));
 

@@ -22,6 +22,12 @@ const enhance = compose(
       const textareaValue = e.target.value;
       props.currentUpdate(props.currentTodo, textareaValue);
     },
+    handlerEnterKey: (props) => (e) => {
+      if (e.charCode === 13 && props.currentTodo) {
+        e.preventDefault();
+        props.saveTodo(props.currentTodo, props.currentTodoText);
+      }
+    },
     handleSubmit: (props) => (e) => {
       e.preventDefault();
       props.saveTodo(props.currentTodo, props.currentTodoText);
@@ -35,6 +41,7 @@ const TodoForm = enhance(({
   handleSubmit,
   handlerInputChange,
   handlerTextareaChange,
+  handlerEnterKey,
 }) => (
   <Form onSubmit={handleSubmit}>
     <input
@@ -45,6 +52,7 @@ const TodoForm = enhance(({
     />
     <textarea
       onChange={handlerTextareaChange}
+      onKeyPress={handlerEnterKey}
       value={currentTodoText}
       cols="30"
       rows="3"
