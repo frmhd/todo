@@ -7,7 +7,7 @@ import TodoList from './containers/TodoList';
 import TodoFull from './containers/TodoFull';
 import Tabs from './components/Tabs';
 
-const App = (props) => (
+const App = () => (
   <div className="App">
     <div className="App-header">
       <img src={logo} className="App-logo" alt="logo" />
