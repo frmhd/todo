@@ -1,16 +1,23 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { compose, lifecycle } from 'recompose';
+import { compose, lifecycle, setPropTypes } from 'recompose';
 
 import Label from '../components/Label';
 
 import { getClickedTodo, fetchTodos } from '../actions/todo';
 
+const mapStateToProps = (state, ownProperty) => ({ todo: getClickedTodo(state.todos, ownProperty.id) });
+const mapDispatchToProps = { fetchTodos };
+
+const propTypes = {
+  name: PropTypes.string,
+  text: PropTypes.string,
+};
+
 const enhance = compose(
-  connect(
-    (state, ownProperty) => ({ todo: getClickedTodo(state.todos, ownProperty.id) }),
-    { fetchTodos }
-  ),
+  setPropTypes(propTypes),
+  connect(mapStateToProps, mapDispatchToProps),
   lifecycle({
     componentDidMount() {
       this.props.fetchTodos();

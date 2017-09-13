@@ -1,38 +1,51 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { compose, withHandlers } from 'recompose';
+import { compose, withHandlers, setPropTypes } from 'recompose';
 
 import Form from '../components/Form';
 import { currentUpdate, saveTodo } from '../actions/todo';
 
-const enhance = compose(
-  connect(
-    (state) => ({
-      currentTodo: state.currentTodo,
-      currentTodoText: state.currentTodoText,
-    }),
-    { currentUpdate, saveTodo }
-  ),
-  withHandlers({
-    handlerInputChange: (props) => (e) => {
-      const inputValue = e.target.value;
-      props.currentUpdate(inputValue, props.currentTodoText);
-    },
-    handlerTextareaChange: (props) => (e) => {
-      const textareaValue = e.target.value;
-      props.currentUpdate(props.currentTodo, textareaValue);
-    },
-    handlerEnterKey: (props) => (e) => {
-      if (e.charCode === 13 && props.currentTodo) {
-        e.preventDefault();
-        props.saveTodo(props.currentTodo, props.currentTodoText);
-      }
-    },
-    handleSubmit: (props) => (e) => {
+const mapStateToProps = (state) => ({
+  currentTodo: state.currentTodo,
+  currentTodoText: state.currentTodoText,
+});
+const mapDispatchToProps = { currentUpdate, saveTodo };
+
+const propTypes = {
+  currentTodo: PropTypes.string,
+  currentTodoText: PropTypes.string,
+  handleSubmit: PropTypes.func,
+  handlerInputChange: PropTypes.func,
+  handlerTextareaChange: PropTypes.func,
+  handlerEnterKey: PropTypes.func,
+};
+
+const handlers = {
+  handlerInputChange: (props) => (e) => {
+    const inputValue = e.target.value;
+    props.currentUpdate(inputValue, props.currentTodoText);
+  },
+  handlerTextareaChange: (props) => (e) => {
+    const textareaValue = e.target.value;
+    props.currentUpdate(props.currentTodo, textareaValue);
+  },
+  handlerEnterKey: (props) => (e) => {
+    if (e.charCode === 13 && props.currentTodo) {
       e.preventDefault();
       props.saveTodo(props.currentTodo, props.currentTodoText);
-    },
-  })
+    }
+  },
+  handleSubmit: (props) => (e) => {
+    e.preventDefault();
+    props.saveTodo(props.currentTodo, props.currentTodoText);
+  },
+};
+
+const enhance = compose(
+  setPropTypes(propTypes),
+  connect(mapStateToProps, mapDispatchToProps),
+  withHandlers(handlers)
 );
 
 const TodoForm = enhance(({

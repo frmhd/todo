@@ -1,21 +1,36 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { compose, withHandlers } from 'recompose';
+import { compose, withHandlers, setPropTypes } from 'recompose';
 
 import TodoItemLi from '../components/TodoItemLi';
 import DeleteButton from '../components/DeleteButton';
 
 import { toggleTodo, deleteTodo } from '../actions/todo';
 
+const mapStateToProps = null;
+const mapDispatchToProps = { toggleTodo, deleteTodo };
+
+const propTypes = {
+  id: PropTypes.number,
+  isCompleted: PropTypes.bool,
+  name: PropTypes.string,
+  deleteTodo: PropTypes.func,
+  completedHandler: PropTypes.func,
+};
+
+const handlers = {
+  completedHandler: (props) => () => {
+    const { id, toggleTodo } = props;
+    toggleTodo(id);
+  },
+};
+
 const enhance = compose(
-  connect(null, { toggleTodo, deleteTodo }),
-  withHandlers({
-    completedHandler: (props) => () => {
-      const { id, toggleTodo } = props;
-      toggleTodo(id);
-    },
-  })
+  setPropTypes(propTypes),
+  connect(mapStateToProps, mapDispatchToProps),
+  withHandlers(handlers)
 );
 
 const TodoItem = enhance(({ id, isCompleted, name, deleteTodo, completedHandler }) => (
